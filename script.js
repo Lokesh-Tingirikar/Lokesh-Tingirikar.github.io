@@ -1,3 +1,7 @@
+// Get DOM elements
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.getElementById('navLinks');
+
 // Smooth scrolling for navigation links
 document.querySelectorAll('.nav-link').forEach(link => {
     link.addEventListener('click', function(e) {
@@ -22,8 +26,6 @@ document.querySelectorAll('.nav-link').forEach(link => {
 });
 
 // Mobile menu toggle
-const hamburger = document.getElementById('hamburger');
-const navLinks = document.getElementById('navLinks');
 
 hamburger.addEventListener('click', () => {
     navLinks.classList.toggle('active');
@@ -38,8 +40,14 @@ document.addEventListener('click', (e) => {
     }
 });
 
-// Active navigation link on scroll
-window.addEventListener('scroll', () => {
+// Optimized scroll handler with requestAnimationFrame
+let ticking = false;
+let lastScrollY = 0;
+
+function handleScroll() {
+    lastScrollY = window.pageYOffset;
+    
+    // Active navigation link
     const sections = document.querySelectorAll('section');
     const navItems = document.querySelectorAll('.nav-link');
     
@@ -50,7 +58,7 @@ window.addEventListener('scroll', () => {
         const sectionTop = section.offsetTop - navHeight - 100;
         const sectionHeight = section.clientHeight;
         
-        if (window.pageYOffset >= sectionTop && window.pageYOffset < sectionTop + sectionHeight) {
+        if (lastScrollY >= sectionTop && lastScrollY < sectionTop + sectionHeight) {
             current = section.getAttribute('id');
         }
     });
@@ -61,6 +69,28 @@ window.addEventListener('scroll', () => {
             item.classList.add('active');
         }
     });
+    
+    // Show/hide scroll-to-top button
+    if (lastScrollY > 300) {
+        scrollBtn.classList.add('visible');
+    } else {
+        scrollBtn.classList.remove('visible');
+    }
+    
+    // Parallax effect for home section
+    const homeSection = document.querySelector('.home-section');
+    if (homeSection && lastScrollY < homeSection.offsetHeight) {
+        homeSection.style.transform = `translateY(${lastScrollY * 0.5}px)`;
+    }
+    
+    ticking = false;
+}
+
+window.addEventListener('scroll', () => {
+    if (!ticking) {
+        window.requestAnimationFrame(handleScroll);
+        ticking = true;
+    }
 });
 
 // Form submission handler
@@ -73,12 +103,21 @@ contactForm.addEventListener('submit', (e) => {
     const email = document.getElementById('email').value;
     const message = document.getElementById('message').value;
     
-    // Here you would typically send the form data to a server
-    // For now, we'll just show an alert
-    alert(`Thank you ${name}! Your message has been received. I'll get back to you soon at ${email}.`);
+    // Create and show success message
+    const successMessage = document.createElement('div');
+    successMessage.className = 'form-success-message';
+    successMessage.innerHTML = `<i class="fas fa-check-circle"></i> Thank you ${name}! Your message has been received. I'll get back to you soon at ${email}.`;
+    
+    // Insert message after the form
+    contactForm.parentNode.insertBefore(successMessage, contactForm.nextSibling);
     
     // Reset form
     contactForm.reset();
+    
+    // Remove message after 5 seconds
+    setTimeout(() => {
+        successMessage.remove();
+    }, 5000);
 });
 
 // Intersection Observer for fade-in animations
@@ -161,17 +200,32 @@ style.textContent = `
         transform: translateY(-5px);
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
     }
+    
+    .form-success-message {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        padding: 1rem 1.5rem;
+        border-radius: 10px;
+        margin-top: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        animation: slideIn 0.3s ease;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    @keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
 `;
 document.head.appendChild(style);
-
-// Show/hide scroll-to-top button
-window.addEventListener('scroll', () => {
-    if (window.pageYOffset > 300) {
-        scrollBtn.classList.add('visible');
-    } else {
-        scrollBtn.classList.remove('visible');
-    }
-});
 
 // Scroll to top when button is clicked
 scrollBtn.addEventListener('click', () => {
@@ -179,16 +233,6 @@ scrollBtn.addEventListener('click', () => {
         top: 0,
         behavior: 'smooth'
     });
-});
-
-// Parallax effect for home section
-window.addEventListener('scroll', () => {
-    const scrolled = window.pageYOffset;
-    const homeSection = document.querySelector('.home-section');
-    
-    if (homeSection && scrolled < homeSection.offsetHeight) {
-        homeSection.style.transform = `translateY(${scrolled * 0.5}px)`;
-    }
 });
 
 console.log('Portfolio website loaded successfully! 🚀');
