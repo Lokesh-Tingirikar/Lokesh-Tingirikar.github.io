@@ -9,6 +9,9 @@
 /* Import Base Styles */
 @import url('css/base.css');
 
+/* Import Icon Styles */
+@import url('css/icons.css');
+
 /* Import Navigation Styles */
 @import url('css/navigation.css');
 
