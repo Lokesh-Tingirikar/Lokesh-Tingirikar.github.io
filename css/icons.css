@@ -1,0 +1,106 @@
+/**
+ * Icon Styles
+ * Fallback styles for Font Awesome icons using Unicode and CSS
+ */
+
+/* Make Font Awesome optional - provide fallbacks */
+.fa, .fab, .fas {
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    line-height: 1;
+}
+
+/* Social Media Icons */
+.fa-github::before {
+    content: "⚡";
+}
+
+.fa-linkedin::before {
+    content: "💼";
+}
+
+.fa-twitter::before {
+    content: "🐦";
+}
+
+.fa-envelope::before {
+    content: "✉";
+}
+
+/* Navigation Icons */
+.fa-arrow-up::before {
+    content: "↑";
+}
+
+/* Skill Icons */
+.fa-html5::before {
+    content: "🌐";
+}
+
+.fa-css3-alt::before {
+    content: "🎨";
+}
+
+.fa-js::before {
+    content: "⚡";
+}
+
+.fa-react::before {
+    content: "⚛";
+}
+
+.fa-node::before {
+    content: "🟢";
+}
+
+.fa-python::before {
+    content: "🐍";
+}
+
+.fa-git-alt::before {
+    content: "🔀";
+}
+
+.fa-database::before {
+    content: "💾";
+}
+
+/* Project Icons */
+.fa-code::before {
+    content: "💻";
+}
+
+.fa-mobile-alt::before {
+    content: "📱";
+}
+
+.fa-robot::before {
+    content: "🤖";
+}
+
+.fa-chart-line::before {
+    content: "📊";
+}
+
+.fa-external-link-alt::before {
+    content: "🔗";
+}
+
+/* Other Icons */
+.fa-user::before {
+    content: "👤";
+}
+
+.fa-map-marker-alt::before {
+    content: "📍";
+}
+
+.fa-phone::before {
+    content: "📞";
+}
+
+.fa-check-circle::before {
+    content: "✓";
+}

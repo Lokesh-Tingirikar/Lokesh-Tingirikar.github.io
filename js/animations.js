@@ -9,7 +9,7 @@
 export function initFadeInAnimations() {
     const observerOptions = {
         threshold: 0.1,
-        rootMargin: '0px 0px -100px 0px'
+        rootMargin: '0px 0px 50px 0px'  // Changed to positive margin to trigger earlier
     };
     
     const observer = new IntersectionObserver((entries) => {
@@ -17,6 +17,7 @@ export function initFadeInAnimations() {
             if (entry.isIntersecting) {
                 entry.target.style.opacity = '1';
                 entry.target.style.transform = 'translateY(0)';
+                observer.unobserve(entry.target);  // Stop observing after animation
             }
         });
     }, observerOptions);
@@ -39,15 +40,23 @@ export function initTypingEffect() {
     const typingText = document.querySelector('.animate-text');
     if (!typingText) return;
     
-    const originalText = typingText.innerHTML;
-    typingText.innerHTML = '';
+    // Extract text content while preserving HTML structure
+    const originalHTML = typingText.innerHTML;
+    const textContent = typingText.textContent;
+    
+    // Clear the text
+    typingText.textContent = '';
+    
     let charIndex = 0;
     
     function type() {
-        if (charIndex < originalText.length) {
-            typingText.innerHTML += originalText.charAt(charIndex);
+        if (charIndex < textContent.length) {
+            typingText.textContent += textContent.charAt(charIndex);
             charIndex++;
             setTimeout(type, 50);
+        } else {
+            // Restore original HTML after typing is complete
+            typingText.innerHTML = originalHTML;
         }
     }
     
