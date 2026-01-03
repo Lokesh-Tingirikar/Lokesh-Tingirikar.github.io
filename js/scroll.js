@@ -89,12 +89,10 @@ function handleScroll() {
     updateActiveNavLink(current);
     
     // Show/hide scroll-to-top button
-    if (scrollBtn) {
-        if (lastScrollY > 300) {
-            scrollBtn.classList.add('visible');
-        } else {
-            scrollBtn.classList.remove('visible');
-        }
+    if (lastScrollY > 300) {
+        scrollBtn.classList.add('visible');
+    } else {
+        scrollBtn.classList.remove('visible');
     }
     
     // Parallax effect for home section

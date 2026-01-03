@@ -3,12 +3,18 @@
  * Handles navigation menu interactions including mobile menu toggle and smooth scrolling
  */
 
+// Cache DOM elements for better performance
+let hamburger = null;
+let navLinks = null;
+let navbar = null;
+
 /**
  * Initialize navigation functionality
  */
 export function initNavigation() {
-    const hamburger = document.getElementById('hamburger');
-    const navLinks = document.getElementById('navLinks');
+    hamburger = document.getElementById('hamburger');
+    navLinks = document.getElementById('navLinks');
+    navbar = document.querySelector('.navbar');
     
     // Mobile menu toggle
     hamburger.addEventListener('click', () => {
@@ -38,7 +44,7 @@ export function initSmoothScrolling() {
             const targetSection = document.querySelector(targetId);
             
             if (targetSection) {
-                const navHeight = document.querySelector('.navbar').offsetHeight;
+                const navHeight = navbar.offsetHeight;
                 const targetPosition = targetSection.offsetTop - navHeight;
                 
                 window.scrollTo({
@@ -47,8 +53,6 @@ export function initSmoothScrolling() {
                 });
                 
                 // Close mobile menu if open
-                const navLinks = document.getElementById('navLinks');
-                const hamburger = document.getElementById('hamburger');
                 navLinks.classList.remove('active');
                 hamburger.classList.remove('active');
             }
