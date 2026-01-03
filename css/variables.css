@@ -1,0 +1,27 @@
+/**
+ * CSS Custom Properties (Variables)
+ * Centralized color and design token definitions
+ */
+
+:root {
+    /* Primary Colors */
+    --primary-color: #667eea;
+    --secondary-color: #764ba2;
+    --accent-color: #f093fb;
+    
+    /* Text Colors */
+    --text-dark: #2d3748;
+    --text-light: #718096;
+    
+    /* Background Colors */
+    --bg-light: #f7fafc;
+    --bg-white: #ffffff;
+    
+    /* Border and Shadow */
+    --border-color: #e2e8f0;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    --shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.15);
+    
+    /* Transition */
+    --transition: all 0.3s ease;
+}
