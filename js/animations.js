@@ -9,7 +9,7 @@
 export function initFadeInAnimations() {
     const observerOptions = {
         threshold: 0.1,
-        rootMargin: '0px 0px 50px 0px'  // Changed to positive margin to trigger earlier
+        rootMargin: '0px 0px 100px 0px'  // Trigger 100px before element enters viewport
     };
     
     const observer = new IntersectionObserver((entries) => {

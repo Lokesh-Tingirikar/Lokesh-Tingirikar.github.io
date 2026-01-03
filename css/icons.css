@@ -14,7 +14,7 @@
 
 /* Social Media Icons */
 .fa-github::before {
-    content: "⚡";
+    content: "🔗";
 }
 
 .fa-linkedin::before {
